@@ -41,4 +41,31 @@ View.prototype.init = function() {
     this._root.append(colorInput);
 }
 
+View.prototype.onSVGClick = function(callback) {
+    this._svg.addEventListener('click', function(event) {
+        const { layerX, layerY } = event;
+        callback(layerX, layerY);
+    })
+}
+
+View.prototype.onMouseDown = function(callback) {
+    this._svg.addEventListener('mousedown', function(event) {
+        const { layerX, layerY } = event;
+        callback(layerX, layerY);
+    })
+}
+
+View.prototype.onMouseUp = function(callback) {
+    this._svg.addEventListener('mouseup', function() {
+        callback();
+    })
+}
+
+View.prototype.onMouseMove = function(callback) {
+    this._svg.addEventListener('mousemove', function(event) {
+        const { layerX, layerY } = event;
+        callback(layerX, layerY);
+    })
+}
+
 module.exports = View;

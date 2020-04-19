@@ -1,50 +1,44 @@
 function View() {
     this._root = document.querySelector('div#root');
-}
-View.prototype.init = function() {
-    const container_first = createDiv({class: 'container_first'});
-    const container_second = createDiv({class: 'container_second'});
-    const svg = document.createElement('svg');
-    svg.setAttribute('class','svg');
-    svg.setAttribute('width', '1000px');
-    svg.setAttribute('height', '500px');
-    const colorInput = createInput({
-        id: 'color',
-        name: 'color',
-        type:'color',
-    });
-    const rangeInput = createInput({
-        id: 'range',
-        name: 'range',
-        type:'range',
-    });
+    this._svg = null;
 
-    
-    container_first.append(svg);
-    this._root.append(container_first);
-    container_second.append(colorInput); 
-    container_second.append(rangeInput);
-    this._root.append(container_second);
+    this.init();
 }
 
-const createDiv = params => {
-    const div = document.createElement('div');
-    div.setAttribute('class', params.class)
-    params.id && (div.id = params.id);
-    params.title && (div.title = params.title);
-    params.textContent && (div.textContent = params.textContent);
-    params.inner && (div.innerHTML = params.inner);
+const createInput = (id, type, value) => {
+    const wrapper = document.createElement('div');
+    wrapper.setAttribute('class', 'wrapper');
 
-    return div;
-}
-
-const createInput = params => {
     const input = document.createElement('input');
-    input.setAttribute('type', params.type || 'text');
-    params.id && input.setAttribute('id', params.id);
-    params.name && input.setAttribute('name', params.name);
-    params.placeholder && (input.placeholder = params.placeholder);
+    input.setAttribute('id', id);
+    input.setAttribute('type', type);
 
-    return input;
+    value && (input.value = value);
+    wrapper.append(input);
+
+    return wrapper;
 }
+
+const createSvg = () => {
+    const svg = document.createElement('svg');
+    svg.setAttribute('class', 'svg');
+    const paintScreen = document.createElement('div');
+    paintScreen.setAttribute('class', 'paintScreen');
+    paintScreen.setAttribute('height', '500px');
+    paintScreen.setAttribute('width', '1000px');
+
+    svg.append(paintScreen);
+    return svg;
+}
+
+View.prototype.init = function() {
+    this._svg = createSvg();
+    const colorInput = createInput('color', 'color', '#00000');
+    const rangeInput = createInput('range', 'range');
+
+    this._root.append(this._svg);
+    this._root.append(rangeInput);
+    this._root.append(colorInput);
+}
+
 module.exports = View;

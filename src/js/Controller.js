@@ -4,7 +4,7 @@ function Controller(model, view) {
 }
 
 Controller.prototype.init = function() {
-    // this._view.init();
+    this._view.init();
 }
 
 module.exports = Controller;

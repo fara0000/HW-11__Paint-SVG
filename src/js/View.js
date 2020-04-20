@@ -1,8 +1,16 @@
 function View() {
     this._root = document.querySelector('div#root');
     this._svg = null;
+}
 
-    this.init();
+View.prototype.init = function() {
+    this._svg = createSvg(1000, 500);
+    const colorInput = createInput('color', 'color', '#00000');
+    const rangeInput = createInput('range', 'range');
+
+    this._root.append(this._svg);
+    this._root.append(rangeInput);
+    this._root.append(colorInput);
 }
 
 const createInput = (id, type, value) => {
@@ -19,27 +27,16 @@ const createInput = (id, type, value) => {
     return wrapper;
 }
 
-const createSvg = () => {
-    const svg = document.createElement('svg');
-    svg.setAttribute('class', 'svg');
-    const paintScreen = document.createElement('div');
-    paintScreen.setAttribute('class', 'paintScreen');
-    paintScreen.setAttribute('height', '500px');
-    paintScreen.setAttribute('width', '1000px');
+const createSvg = (width, height) => {
+    const svgns = "http://www.w3.org/2000/svg"; 
+    const svg = document.createElementNS(svgns, "svg");
+    svg.setAttribute("width", width);
+    svg.setAttribute("height", height);
+    svg.setAttribute("viewBox", "0 0 " + width + " " + height);
 
-    svg.append(paintScreen);
     return svg;
 }
 
-View.prototype.init = function() {
-    this._svg = createSvg();
-    const colorInput = createInput('color', 'color', '#00000');
-    const rangeInput = createInput('range', 'range');
-
-    this._root.append(this._svg);
-    this._root.append(rangeInput);
-    this._root.append(colorInput);
-}
 
 View.prototype.onSVGClick = function(callback) {
     this._svg.addEventListener('click', function(event) {

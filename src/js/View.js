@@ -47,7 +47,7 @@ View.prototype.addPolyline = function(x, y, color, width) {
     this._polyline.setAttribute("points", `${x},${y}`);
     this._polyline.setAttribute("stroke-linecap", "round");
     this._polyline.style.stroke = 'black';
-    this._polyline.style.strokeWidth = '10';
+    this._polyline.style.strokeWidth = '11';
     this._polyline.style.fill = "none";
     this._svg.append(this._polyline);
 

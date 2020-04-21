@@ -47,7 +47,7 @@ View.prototype.addPolyline = function(x, y) {
     this._polyline.setAttribute("points", `${x},${y}`);
     this._polyline.setAttribute("stroke-linecap", "round");
     this._polyline.style.stroke = 'black';
-    this._polyline.style.strokeWidth = '10';
+    this._polyline.style.strokeWidth = "5";
     this._polyline.style.fill = "none";
     this._svg.append(this._polyline);
 
@@ -86,6 +86,7 @@ View.prototype.drawLine = function(x, y) {
     let newPoints = oldPoints + ` ${x},${y}`;
     this._polyline.setAttribute("points", newPoints);
 }
+
 
 View.prototype.changeColoring = function(cb) {
     this._colorInput.addEventListener('change', function (event) {

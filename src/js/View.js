@@ -1,18 +1,18 @@
 function View() {
     this._root = document.querySelector('div#root');
     this._svg = null;
+    this._colorInput = null;
+    this._rangeInput = null;
 }
 
 View.prototype.init = function() {
-    this._svg = createSvg(1000, 500);
-
-    const colorInput = createInput('color', 'color', '#00000');
-    const rangeInput = createInput('range', 'range');
-
+    this._svg = createSvg(1440, 680);
+    this._colorInput = createInput('color', 'color', 'black');
+    this._rangeInput = createInput('range', 'range');
 
     this._root.append(this._svg);
-    this._root.append(rangeInput);
-    this._root.append(colorInput);
+    this._root.append(this._rangeInput);
+    this._root.append(this._colorInput);
 }
 
 const createInput = (id, type, value) => {
@@ -23,7 +23,7 @@ const createInput = (id, type, value) => {
     input.setAttribute('id', id);
     input.setAttribute('type', type);
 
-    value && (input.value = value);
+    input.value = '';
     wrapper.append(input);
 
     return wrapper;
@@ -32,23 +32,27 @@ const createInput = (id, type, value) => {
 const createSvg = (width, height) => {
     const svgns = "http://www.w3.org/2000/svg"; 
     const svg = document.createElementNS(svgns, "svg");
-    
+
     svg.setAttribute("width", width);
     svg.setAttribute("height", height);
-    svg.setAttribute("viewBox", "0 0 " + width + " " + height);
-
-    const polyline  = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
-    polyline .setAttribute("fill", "white");
-    polyline .setAttribute("points", "0,0 0,20 20,20 20,40 40,40 40,60");
-    polyline .setAttribute("stroke", "red");
-    polyline .setAttribute("stroke-width", "2");
-
-    svg.append(polyline);
-    
+    svg.setAttribute("viewBox", "0 0 " + width + " " + height);    
 
     return svg;
 }
 
+View.prototype.addPolyline = function(x, y, color, width) {
+    const xmlns = "http://www.w3.org/2000/svg";
+    this._polyline = document.createElementNS(xmlns, "polyline");
+
+    this._polyline.setAttribute("points", `${x},${y}`);
+    this._polyline.setAttribute("stroke-linecap", "round");
+    this._polyline.style.stroke = color;
+    this._polyline.style.strokeWidth = width;
+    this._polyline.style.fill = "none";
+    this._svg.append(this._polyline);
+
+    return this._polyline;
+}
 
 View.prototype.onSVGClick = function(callback) {
     this._svg.addEventListener('click', function(event) {
@@ -75,6 +79,26 @@ View.prototype.onMouseMove = function(callback) {
         const { layerX, layerY } = event;
         callback(layerX, layerY);
     })
+}
+
+View.prototype.drawLine = function(x, y) {
+    let oldPoints = this._polyline.getAttribute("points");
+    let newPoints = oldPoints + ` ${x},${y}`;
+    this._polyline.setAttribute("points", newPoints);
+}
+
+View.prototype.changeColoring = function(cb) {
+    this._colorInput.addEventListener('change', function (event) {
+        
+        cb(event.target.value);
+    }) 
+}
+
+View.prototype.changeSize = function(cb) {
+    this._rangeInput.addEventListener('change', function (event) {
+        
+        cb(event.target.value);
+    }) 
 }
 
 module.exports = View;

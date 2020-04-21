@@ -7,7 +7,7 @@ function View() {
 
 View.prototype.init = function() {
     this._svg = createSvg(1440, 680);
-    this._colorInput = createInput('color', 'color', 'black');
+    this._colorInput = createInput('color', 'color', 'black', '10', '100', '10');
     this._rangeInput = createInput('range', 'range');
 
     this._root.append(this._svg);
@@ -15,7 +15,7 @@ View.prototype.init = function() {
     this._root.append(this._colorInput);
 }
 
-const createInput = (id, type, value) => {
+const createInput = (id, type, value, min, max, step) => {
     const wrapper = document.createElement('div');
     wrapper.setAttribute('class', 'wrapper');
 
@@ -23,7 +23,10 @@ const createInput = (id, type, value) => {
     input.setAttribute('id', id);
     input.setAttribute('type', type);
 
-    input.value = '';
+    value && (input.value = value);
+    min && (input.min = min);
+    max && (input.max = max);
+    step && (input.step = step);
     wrapper.append(input);
 
     return wrapper;
@@ -40,14 +43,14 @@ const createSvg = (width, height) => {
     return svg;
 }
 
-View.prototype.addPolyline = function(x, y) {
+View.prototype.addPolyline = function(x, y, color, width) {
     const xmlns = "http://www.w3.org/2000/svg";
     this._polyline = document.createElementNS(xmlns, "polyline");
 
     this._polyline.setAttribute("points", `${x},${y}`);
     this._polyline.setAttribute("stroke-linecap", "round");
-    this._polyline.style.stroke = 'black';
-    this._polyline.style.strokeWidth = "5";
+    this._polyline.style.stroke = color;
+    this._polyline.style.strokeWidth = width;
     this._polyline.style.fill = "none";
     this._svg.append(this._polyline);
 
@@ -90,8 +93,8 @@ View.prototype.drawLine = function(x, y) {
 
 View.prototype.changeColoring = function(cb) {
     this._colorInput.addEventListener('change', function (event) {
-        
-        cb(event.target.value);
+        const { value } = event.target;
+        cb(value);
     }) 
 }
 

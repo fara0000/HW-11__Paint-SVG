@@ -1,6 +1,12 @@
 @bcgcolor: linear-gradient(to right,#256199,#b82e2e,);
 @bordercolor: #181616;
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     background: linear-gradient(-45deg, #5ccab2, #81adcf, #000000);
 	background-size: 400% 400%;
@@ -13,15 +19,8 @@ body {
     100%{background-position:0% 50%}
 }
 
-#root {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
 svg {
-    border: 15px double black;
-    margin: 20px auto;
+    border: 2px solid black;
     background-color: white;
 }
 

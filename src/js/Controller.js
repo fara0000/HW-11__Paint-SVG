@@ -19,16 +19,6 @@ Controller.prototype.init = function() {
 Controller.prototype.startDraw = function(x, y) {
     this._isPressed = true;
     this._view.addPolyline(x, y);
-
-    // this._svg.strokeStyle = this._color;
-    // this._svg.lineWidth = this._width;
-    // this._svg.lineCap = 'round';
-
-    // this._svg.beginPath();
-    // this._svg.moveTo(x, y);
-
-    // this._x = x;
-    // this._y = y;
 }
 
 Controller.prototype.isMouseDraw = function(x, y) {
@@ -42,12 +32,24 @@ Controller.prototype.points = function(x, y) {
     }
 }
 
+Controller.prototype.stopDraw = function() {
+    this._isPressed = false;
+}
+
 Controller.prototype.changeWidth = function(width) {
-    // this._width = width;
+    this._width = width;
 }
 
 Controller.prototype.changeColor = function(color) {
-    // this._color = color;
+    this._color = color;
+}
+
+Controller.prototype.changeWidth = function(width) {
+    this._width = width;
+}
+
+Controller.prototype.changeColor = function(color) {
+    this._color = color;
 }
 
 Controller.prototype.stopDraw = function() {

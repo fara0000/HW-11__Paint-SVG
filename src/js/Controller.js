@@ -4,16 +4,16 @@ function Controller(model, view) {
     this._isPressed = false;
     this._color = '';
     this._width = 0;
-    this.points = '';
+    this.point = '';
 }
 
 Controller.prototype.init = function() {
     this._view.init();
-    this._view.onMouseDown(this.startDraw.bind(this));
     this._view.onMouseUp(this.stopDraw.bind(this));
     this._view.onMouseMove(this.isMouseDraw.bind(this));
     this._view.changeColoring(this.changeColor.bind(this));
     this._view.changeSize(this.changeWidth.bind(this));
+    this._view.onMouseDown(this.startDraw.bind(this));
 }
 
 Controller.prototype.startDraw = function(x, y) {
@@ -23,17 +23,17 @@ Controller.prototype.startDraw = function(x, y) {
 
 Controller.prototype.isMouseDraw = function(x, y) {
     this._view.drawLine(x, y);
-    this.points(x, y);
+    this.point ;
 }
 
 Controller.prototype.points = function(x, y) {
     if (this._isPressed) {
-        this.points += ` ${x},${y}`;
+        this.point  += ` ${x},${y}`;
     }
 }
 
 Controller.prototype.stopDraw = function() {
-    this._isPressed = false;
+    
 }
 
 Controller.prototype.changeWidth = function(width) {

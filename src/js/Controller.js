@@ -34,7 +34,6 @@ Controller.prototype.points = function(x, y) {
 
 Controller.prototype.stopDraw = function() {
     this._isPressed = false;
-    console.log('im working B');
 }
 
 Controller.prototype.changeWidth = function(width) {
@@ -43,6 +42,18 @@ Controller.prototype.changeWidth = function(width) {
 
 Controller.prototype.changeColor = function(color) {
     this._color = color;
+}
+
+Controller.prototype.changeWidth = function(width) {
+    this._width = width;
+}
+
+Controller.prototype.changeColor = function(color) {
+    this._color = color;
+}
+
+Controller.prototype.stopDraw = function() {
+    this._isPressed = false;
 }
 
 module.exports = Controller;

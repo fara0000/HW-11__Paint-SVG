@@ -40,14 +40,14 @@ const createSvg = (width, height) => {
     return svg;
 }
 
-View.prototype.addPolyline = function(x, y, color, width) {
+View.prototype.addPolyline = function(x, y) {
     const xmlns = "http://www.w3.org/2000/svg";
     this._polyline = document.createElementNS(xmlns, "polyline");
 
     this._polyline.setAttribute("points", `${x},${y}`);
     this._polyline.setAttribute("stroke-linecap", "round");
     this._polyline.style.stroke = 'black';
-    this._polyline.style.strokeWidth = '11';
+    this._polyline.style.strokeWidth = '10';
     this._polyline.style.fill = "none";
     this._svg.append(this._polyline);
 
